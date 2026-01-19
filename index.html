@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV_CORE // UTILITIES</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">DEV_CORE <span class="blink">_</span></div>
+            
+            <button class="nav-btn active" onclick="switchTab('json')">
+                <i data-lucide="braces"></i> JSON Formatter
+            </button>
+            <button class="nav-btn" onclick="switchTab('base64')">
+                <i data-lucide="binary"></i> Base64 Convert
+            </button>
+            <button class="nav-btn" onclick="switchTab('pxrem')">
+                <i data-lucide="calculator"></i> PX to REM
+            </button>
+            <button class="nav-btn" onclick="switchTab('shadow')">
+                <i data-lucide="layers"></i> Shadow Gen
+            </button>
+        </nav>
+
+        <main class="content">
+            
+            <div id="json" class="tool-panel active">
+                <h2>// JSON_PRETTIFIER</h2>
+                <div class="split-view">
+                    <textarea id="jsonInput" placeholder="Paste ugly JSON here..."></textarea>
+                    <textarea id="jsonOutput" readonly placeholder="Result appears here..."></textarea>
+                </div>
+                <div class="controls">
+                    <button class="action-btn" onclick="formatJSON()">FORMAT</button>
+                    <button class="action-btn secondary" onclick="minifyJSON()">MINIFY</button>
+                    <button class="action-btn copy" onclick="copyToClipboard('jsonOutput')">COPY</button>
+                </div>
+            </div>
+
+            <div id="base64" class="tool-panel">
+                <h2>// BASE64_TRANSLATOR</h2>
+                <div class="split-view">
+                    <textarea id="b64Input" placeholder="Type text here..."></textarea>
+                    <textarea id="b64Output" readonly placeholder="Result..."></textarea>
+                </div>
+                <div class="controls">
+                    <button class="action-btn" onclick="encode64()">ENCODE</button>
+                    <button class="action-btn secondary" onclick="decode64()">DECODE</button>
+                    <button class="action-btn copy" onclick="copyToClipboard('b64Output')">COPY</button>
+                </div>
+            </div>
+
+            <div id="pxrem" class="tool-panel">
+                <h2>// UNIT_CONVERTER</h2>
+                <div class="converter-box">
+                    <div class="input-group">
+                        <label>Pixels (px)</label>
+                        <input type="number" id="pxInput" value="16" oninput="convertPxToRem()">
+                    </div>
+                    <div class="icon-arrow">→</div>
+                    <div class="input-group">
+                        <label>REM</label>
+                        <input type="number" id="remInput" value="1" oninput="convertRemToPx()">
+                    </div>
+                </div>
+                <div class="settings">
+                    <label>Base Size: <input type="number" id="baseSize" value="16" oninput="convertPxToRem()"> px</label>
+                </div>
+            </div>
+
+            <div id="shadow" class="tool-panel">
+                <h2>// SHADOW_GENERATOR</h2>
+                <div class="shadow-workspace">
+                    <div class="controls-panel">
+                        <label>Offset X: <span id="valX">10px</span></label>
+                        <input type="range" min="-50" max="50" value="10" id="rangeX" oninput="updateShadow()">
+                        
+                        <label>Offset Y: <span id="valY">10px</span></label>
+                        <input type="range" min="-50" max="50" value="10" id="rangeY" oninput="updateShadow()">
+                        
+                        <label>Blur: <span id="valBlur">20px</span></label>
+                        <input type="range" min="0" max="100" value="20" id="rangeBlur" oninput="updateShadow()">
+                        
+                        <label>Spread: <span id="valSpread">5px</span></label>
+                        <input type="range" min="-20" max="50" value="5" id="rangeSpread" oninput="updateShadow()">
+                        
+                        <label>Color</label>
+                        <input type="color" value="#000000" id="shadowColor" oninput="updateShadow()">
+                    </div>
+                    
+                    <div class="preview-panel">
+                        <div id="shadowBox" class="preview-box"></div>
+                    </div>
+                </div>
+                <div class="code-output">
+                    <code>box-shadow: <span id="codeShadow">10px 10px 20px 5px rgba(0,0,0,0.5);</span></code>
+                    <button class="copy-sm" onclick="copyShadowCode()">COPY CSS</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
